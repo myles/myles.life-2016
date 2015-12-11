@@ -8,10 +8,13 @@ from fabric.api import env, task, run, get, roles
 env.user = 'myles_myles-life'
 env.hosts = ['ssh.phx.nearlyfreespeech.net']
 env.use_ssh_config = True
+
 env.output_prefix = []
+
 env.roledefs = {
     'wp': ['ssh.phx.nearlyfreespeech.net']
 }
+
 
 def wp_cli(args):
     run('wp {0}'.format(args))
