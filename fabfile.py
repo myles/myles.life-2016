@@ -3,20 +3,26 @@
 import datetime
 
 from fabric.utils import error
-from fabric.api import env, task, run, get
+from fabric.api import env, task, run, get, roles
 
 env.user = 'myles_myles-life'
 env.hosts = ['ssh.phx.nearlyfreespeech.net']
 env.use_ssh_config = True
 env.output_prefix = []
-
+env.roledefs = {
+    'wp': ['ssh.phx.nearlyfreespeech.net']
+}
 
 def wp_cli(args):
     run('wp {0}'.format(args))
 
 
 @task
-def plugin(arg):
+@roles('wp')
+def plugin(arg=None):
+    """
+    Manage the plugins.
+    """
     if arg == 'update':
         wp_cli('plugin update --all')
     elif arg == 'status':
@@ -28,7 +34,8 @@ def plugin(arg):
 
 
 @task
-def theme(arg):
+@roles('wp')
+def theme(arg=None):
     if arg == 'update':
         wp_cli('theme update --all')
     elif arg == 'status':
@@ -40,7 +47,8 @@ def theme(arg):
 
 
 @task
-def db(arg):
+@roles('wp')
+def db(arg=None):
     if arg == 'optimize':
         wp_cli('db optimize')
     elif arg == 'repair':
@@ -64,14 +72,18 @@ def db(arg):
 
 
 @task
-def core(arg):
+@roles('wp')
+def core(arg=None):
     if arg == 'update':
         wp_cli('core update')
+    elif arg == 'version':
+        wp_cli('core version --extra')
     else:
         error('No argument found.')
 
 
 @task
+@roles('wp')
 def update_all():
     plugin('update')
     theme('update')
