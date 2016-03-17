@@ -1,0 +1,9 @@
+.banner {
+  @extend .navbar;
+  @extend .navbar-inverse;
+  @extend .navbar-fixed-top;
+  
+  .brand {
+    @extend .navbar-brand;
+  }
+}

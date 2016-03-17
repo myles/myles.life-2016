@@ -1,0 +1,28 @@
+article {
+  /* Article Header
+   * --------------
+   */
+  header {
+    @extend .page-header; 
+  }
+
+  .entry-title {
+    margin-bottom: 5px;
+  }
+
+  .entry-meta {
+    @extend .lead;
+
+    margin-bottom: 10px;
+  }
+
+  /* Article Content
+   * ---------------
+   */
+  .entry-content {
+    figure,
+    .size-full {
+      max-width: 100%;
+    }
+  }
+}
